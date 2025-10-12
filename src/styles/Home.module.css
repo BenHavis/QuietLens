@@ -1,0 +1,42 @@
+.container {
+  padding: 4rem 1rem;
+}
+
+.hero {
+  margin-bottom: 4rem;
+  background: rgba(255, 255, 255, 0.85); /* was white */
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  padding: 3rem 2rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+}
+
+.section {
+  background: rgba(255, 255, 255, 0.85); /* was white */
+  backdrop-filter: blur(8px);
+  border-radius: 12px;
+  padding: 2rem 2rem;
+  margin-bottom: 3rem;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+}
+
+
+.list {
+  color: #444;
+  line-height: 1.8;
+  padding-left: 1.2rem;
+}
+
+button.MuiButton-contained {
+  background-color: var(--accent-dark);
+  transition: background 0.2s ease;
+}
+
+button.MuiButton-contained:hover {
+  background-color: var(--accent);
+}
+
+input.MuiInputBase-input {
+  background-color: #fff;
+  border-radius: 6px;
+}

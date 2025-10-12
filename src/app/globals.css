@@ -1,0 +1,38 @@
+:root {
+  --background: linear-gradient(135deg, #cbe8ff, #f8faff, #e2f0ff);
+  --foreground: #0a0a0a;
+  --accent: #1565c0;
+  --accent-light: #90caf9;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: linear-gradient(135deg, #0b1b3a, #152a47, #203354);
+    --foreground: #ededed;
+    --accent: #64b5f6;
+  }
+}
+
+/* Animated gradient */
+@keyframes quietGradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Inter", Arial, Helvetica, sans-serif;
+  background: var(--background);
+  background-size: 200% 200%;
+  animation: quietGradient 30s ease infinite;
+  color: var(--foreground);
+  transition: background 0.3s ease, color 0.3s ease;
+}
