@@ -1,3 +1,5 @@
+import { Analytics } from "@vercel/analytics/next"
+
 export const metadata = {
   title: "QuietLens – See the Sound of Your Neighborhood",
   description:
@@ -57,6 +59,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en">
       <body style={{ margin: 0, fontFamily: "Inter, sans-serif" }}>
         {children}
+        <Analytics />
       </body>
     </html>
   );
