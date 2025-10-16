@@ -1,61 +1,38 @@
 "use client";
 
-import { Box, TextField, Button, Typography } from "@mui/material";
+import { Box, TextField, Typography } from "@mui/material";
 import { useState } from "react";
 
-type Props = { onSubmit: (email: string) => Promise<void> };
+type Props = {
+  onEmailChange: (email: string) => void;
+  error?: string;
+};
 
-export default function EmailForm({ onSubmit }: Props) {
+export default function EmailForm({ onEmailChange, error }: Props) {
   const [email, setEmail] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
-  const [error, setError] = useState("");
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setError("");
-    setLoading(true);
-    try {
-      await onSubmit(email);
-      setSubmitted(true);
-    } catch (err) {
-      setError("Something went wrong. Please try again.");
-      console.error(err);
-    } finally {
-      setLoading(false);
-    }
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setEmail(value);
+    onEmailChange(value);
   };
 
-  if (submitted) {
-    return (
-      <Typography color="success.main" sx={{ mt: 2 }}>
-        Thanks! You’re on the list.
-      </Typography>
-    );
-  }
-
   return (
-    <Box
-      component="form"
-      onSubmit={handleSubmit}
-      display="flex"
-      justifyContent="center"
-      gap={1}
-      flexWrap="wrap"
-      sx={{ mt: 2 }}
-    >
+    <Box display="flex" justifyContent="center" sx={{ mt: 2 }}>
       <TextField
         type="email"
         placeholder="Enter your email"
         size="small"
         required
         value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        sx={{ width: 250, backgroundColor: "white", borderRadius: "6px" }}
+        onChange={handleChange}
+        sx={{
+          width: 260,
+          backgroundColor: "white",
+          borderRadius: "6px",
+          boxShadow: "0 2px 6px rgba(0, 0, 0, 0.08)",
+        }}
       />
-      <Button variant="contained" type="submit" disabled={loading}>
-        {loading ? "Submitting..." : "Notify Me"}
-      </Button>
       {error && (
         <Typography color="error" sx={{ mt: 1, textAlign: "center", width: "100%" }}>
           {error}
