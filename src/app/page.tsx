@@ -42,7 +42,8 @@ export default function HomePage() {
     <div className={styles.pageWrapper}>
       <Container maxWidth="md" className={styles.container}>
         <Box textAlign="center" className={styles.hero}>
-          <Typography variant="h3" fontWeight={700} gutterBottom className={styles.heroTitle}>
+          <Typography  component="h1"     // semantic element for SEO
+  variant="h3"   fontWeight={700} gutterBottom className={styles.heroTitle}>
             See the Sound of Your Neighborhood
           </Typography>
         <p className={styles.heroSubtitle}>
