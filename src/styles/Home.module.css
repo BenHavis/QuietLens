@@ -1,42 +1,141 @@
+/* Home.module.css */
+
+:root {
+  --mainBlue: #3a7bd5;
+}
+
+
+
+.pageWrapper {
+  position: relative;
+   background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+  min-height: 100vh;
+  padding: 2rem 0;
+  overflow: hidden;
+}
+
 .container {
+  position: relative;
+  z-index: 1;
   padding: 4rem 1rem;
+}
+
+.sectionTitle{
+  color: var(--mainBlue)
+
 }
 
 .hero {
   margin-bottom: 4rem;
-  background: rgba(255, 255, 255, 0.85); /* was white */
+  background: rgba(255, 255, 255, 0.7);
   backdrop-filter: blur(10px);
   border-radius: 16px;
   padding: 3rem 2rem;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+    text-align: center;
+
+}
+
+
+
+.heroTitle {
+  background: linear-gradient(135deg, var(--mainBlue), #00d2ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.heroSubtitle {
+  font-size: 1.25rem; /* similar to h6 */
+  color: #555; /* soft gray tone to match MUI's text.secondary */
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto 1.5rem auto; /* centers horizontally + adds spacing below */
+  line-height: 1.6;
+  font-weight: 400;      /* ✅ Ensure it respects container width */
+}
+
+
+.cityInput input {
+  width: 250px;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 6px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  backdrop-filter: blur(5px);
 }
 
 .section {
-  background: rgba(255, 255, 255, 0.85); /* was white */
+  background: rgba(255, 255, 255, 0.7);
   backdrop-filter: blur(8px);
   border-radius: 12px;
-  padding: 2rem 2rem;
+  padding: 2rem;
   margin-bottom: 3rem;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+  text-align: center; /* Add this line */
 }
-
+.sectionText {
+  line-height: 1.7;
+  padding: 0 1rem;
+}
 
 .list {
-  color: #444;
+  list-style-position: inside; /* or 'outside' if you prefer standard indentation */
+  text-align: left; /* override parent centering */
+  display: inline-block; /* keeps list centered as a block, but bullets left-aligned */
+  margin: 1rem auto 0 auto; /* centers the block horizontally */
+  padding-left: 0; /* remove extra indentation */
+  line-height: 1.7;
+}
+
+
+.backgroundAnimation {
+  position: absolute;
+  z-index: 0;
+  top: 0;
+  left: 0;
+  right: 0;  
+  bottom: 0;
+  background: radial-gradient(circle at center, #d9e2ec, #f0f4f8);
+  animation: pulseBackground 10s ease-in-out infinite;
+}
+
+@keyframes pulseBackground {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+.featureList {
+  list-style: none;
+  padding: 0;
+  margin: 1.5rem auto 0;
+  max-width: 600px;
+  text-align: left;
+  display: inline-block;
+}
+
+.featureList li {
+  display: flex;
+  align-items: center;
+  font-size: 1.1rem;
+  color: #333;
   line-height: 1.8;
-  padding-left: 1.2rem;
+  margin-bottom: 1rem;
+  border-left: 3px solid #3a7bd5;
+  padding-left: 0.75rem;
+  background: rgba(58, 123, 213, 0.05);
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  transition: background 0.25s ease;
 }
 
-button.MuiButton-contained {
-  background-color: var(--accent-dark);
-  transition: background 0.2s ease;
+.featureList li:hover {
+  background: rgba(0, 210, 255, 0.08);
 }
 
-button.MuiButton-contained:hover {
-  background-color: var(--accent);
-}
-
-input.MuiInputBase-input {
-  background-color: #fff;
-  border-radius: 6px;
+.featureList li span {
+  margin-right: 0.5rem;
+  font-size: 1.25rem;
 }
