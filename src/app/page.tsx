@@ -7,11 +7,20 @@ import styles from "@/styles/Home.module.css";
 import { createClient } from "@supabase/supabase-js";
 import { useState } from "react";
 
+const DUPLICATE_ROW_CODE = "23505"
+
 // Supabase
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
 );
+
+function isValidEmail(email: string): boolean {
+  // Simple but effective email validation regex
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailRegex.test(email.trim());
+}
+
 
 export default function HomePage() {
   const [city, setCity] = useState("");
@@ -24,19 +33,44 @@ export default function HomePage() {
   try {
     setLoading(true);
     setError("");
+
+      // Validate email before submission
+    if (!isValidEmail(email)) {
+      setError("Please enter a valid email address.");
+      return;
+    }
+
     const { error } = await supabase
-      .from("quietlens_signups")
+      .from("initial_signups")
       .insert([{ email, city }]);
-    if (error) throw error;
+
+    if (error) {
+      console.error("Supabase insert error:", {
+        message: error.message,
+        code: error.code,
+        details: error.details,
+        hint: error.hint,
+      });
+
+      // Check for duplicate email constraint
+      if (error.code === DUPLICATE_ROW_CODE) {
+        setError("Looks like you’ve already signed up — we’ll keep you posted!");
+        return; // don’t throw here since we handled it
+      }
+
+      throw error; // handle other errors normally
+    }
+
     setSubmitted(true);
-  } catch (err) {
-    console.error(err);
-    setError("Something went wrong. Please try again.");
+  } catch (err: any) {
+    console.error("Submission failed:", err);
+    if (!error) setError("Something went wrong. Please try again.");
   } finally {
     setLoading(false);
+    setCity("");
+    setEmail("");
   }
 };
-
 
   return (
     <div className={styles.pageWrapper}>
@@ -69,19 +103,31 @@ export default function HomePage() {
 
                 {/* Notify button */}
           {!submitted ? (
-            <Button
-              variant="contained"
-              sx={{ mt: 2, px: 4, borderRadius: "8px" }}
-              onClick={handleSubmit}
-              disabled={!email || !city || loading}
-            >
-              {loading ? "Submitting..." : "Notify Me"}
-            </Button>
-          ) : (
-            <Typography color="success.main" sx={{ mt: 2 }}>
-              Thanks! You’re on the list.
-            </Typography>
-          )}
+  <>
+    <Button
+      variant="contained"
+      sx={{ mt: 2, px: 4, borderRadius: "8px" }}
+      onClick={handleSubmit}
+      disabled={!email || !city || loading}
+    >
+      {loading ? "Submitting..." : "Notify Me"}
+    </Button>
+
+    {error && (
+      <Typography
+        color="error"
+        sx={{ mt: 1, fontSize: "0.9rem", fontWeight: 500 }}
+      >
+        {error}
+      </Typography>
+    )}
+  </>
+) : (
+  <Typography color="success.main" sx={{ mt: 2 }}>
+    Thanks! You’re on the list.
+  </Typography>
+)}
+
 
           <Typography variant="body2" color="text.secondary" sx={{ mt: 2, fontStyle: "italic" }}>
             We'll let you know when QuietLens launches in your city.
