@@ -147,17 +147,18 @@ export default function HomePage() {
   <Typography variant="h5" fontWeight={700} gutterBottom className={styles.sectionTitle}>
     What QuietLens will do
   </Typography>
-  <ul className={styles.featureList}>
-    <li>
-      <span>🌙</span> Show when an area is calm — and when it isn't.
-    </li>
-    <li>
-      <span>📅</span> Help you plan for it — not avoid it.
-    </li>
-    <li>
-      <span>🧭</span> Give you objective information so you can make your own call.
-    </li>
-  </ul>
+<ul className={styles.featureList}>
+  <li>
+    <span>🌙</span> Know when peace actually happens — and when the noise begins.
+  </li>
+  <li>
+    <span>📅</span> Choose a neighborhood that fits your rhythm — whether you work from home or wind down early.
+  </li>
+  <li>
+    <span>🧭</span> Move in confident, not curious — with data that shows what life really sounds like.
+  </li>
+</ul>
+
 </Box>
 
 
